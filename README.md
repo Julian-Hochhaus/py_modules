@@ -1,7 +1,7 @@
 # py_modules
 If you got a problem or suggestions to improve the scripts, please create an [issue in git](https://github.com/Julian-Hochhaus/py_modules/issues).
 
-As long as these modules are not implemented als modules, you need to copy the scripts you like to use in your current working directory.
+As long as these modules are not implemented as modules, you need to copy the scripts in your current working directory.
 Usage:
 
 Import the scripts to your python scripts i.e. with:

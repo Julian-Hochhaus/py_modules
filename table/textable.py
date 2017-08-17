@@ -1,4 +1,4 @@
-def latex_tab(data,names,filename,caption,label):
+def latex_tab(data=[[1,2,3],[42,42,42]],names=["col1","col2"],filename="test.tex",caption="Caption",label="test"):
     try:
         for i in range(len(data)-1):
             if not(len(data[i])==len(data[i+1])):

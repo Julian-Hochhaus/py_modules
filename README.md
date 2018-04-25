@@ -14,4 +14,6 @@ Using **textable**:
 Where data_array must be an array of arrays; names_array must be an array of strings, containing the column-names, filename has to be a string,too.
 dec_points sets precision for each column.
 For an example, have a look at example.py
-label has to be a string. **Please notice: You do not need to add prefix "tab:".** 
+label has to be a string. 
+
+**Please notice: You do not need to add prefix "tab:".** 

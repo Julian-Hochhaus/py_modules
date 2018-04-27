@@ -13,7 +13,7 @@ Using **textable**:
 
 Where data_array must be an array of arrays; names_array must be an array of strings, containing the column-names, filename has to be a string,too.
 
-dec_points sets precision for each column.
+dec_points sets precision for each column. dec_points is ignored, if uncertainty-arrays are used as input. Instead, the rounding rules by Particle Data Group are used (as in uncertainties-package implemented)
 For an example, have a look at example.py
 
 label must be a string. 

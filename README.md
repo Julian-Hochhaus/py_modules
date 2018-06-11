@@ -9,7 +9,8 @@ Import via:
 Using **textable**:
 
 
-    textable.latex_tab(data=[arr1,arr2],names=[r"title column 1",r"title column 2"], filename=r"example.tex",caption=r"Beautiful caption",label=r"important_label",dec_points=[2,0])
+    textable.latex_tab(data=[arr1,arr2],names=[r"title column 1",r"title column 2"], filename=r"example.tex",caption=r"Beautiful caption",label=r"important_label",dec_points=[2,0], tableformat=3.3)
+
 
 Where data_array must be an array of arrays; names_array must be an array of strings, containing the column-names, filename has to be a string,too.
 

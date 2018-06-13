@@ -26,6 +26,8 @@ label must be a string.
 **Btw: You do not need to add prefix "tab:".**
 
 
+
+
 Using **axislabel**
 
 Import via:
@@ -36,4 +38,7 @@ Calling the function:
 Grabs the current axis ticks and uses the german decimal separator ',' instead of the '.'
 
 For an example, have a look at example.py
+
+
+
 **Needs to be called in every plt instance!**

@@ -33,7 +33,7 @@ def latex_tab(data=[[1,2,3],[42,42,42]],names=["col1","col2"],filename="test.tex
 
                 if isinstance(data[j][i],uncertainties.core.Variable):
                     data[j][i]=(str(data[j][i])).replace('+/-',' \pm ')
-                    texfile.write('$\\num{'+ data[j][i]+'}$')
+                    texfile.write('$\\num{'+ data[j][i]+'}$'+" & ")
                 else:
                     texfile.write(("{:10.%df}"%dec_points[j]).format(data[j][i])+" & ")
             if isinstance(data[len(data)-1][i],uncertainties.core.Variable):
@@ -57,3 +57,4 @@ if __name__ == "__main__":
     print("42 is the answer to life the universe and everything!")
     print("Running this module as script generates a sample table.tex")
     latex_tab([arr1,arr2],["col1","col2"],"table.tex",'caption','sample')
+

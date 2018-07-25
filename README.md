@@ -2,7 +2,7 @@
 If you got a problem or suggestions to improve the scripts, please create an [issue in git](https://github.com/Julian-Hochhaus/py_modules/issues).
 
 Import via:
-    
+
     from modules.table import textable
 
 
@@ -26,6 +26,9 @@ label must be a string.
 **Btw: You do not need to add prefix "tab:".**
 
 
+If you want to see the results, compile the .tex-file.
+To do so, easiest way is to use the makefile.
+That will compile main.tex where the generated example.tex is included. 
 
 
 Using **axislabel**
@@ -35,7 +38,7 @@ Import via:
     from modules.plot import axislabel as axis
 
 Calling the function:
-    
+
     axis.labels()
 Grabs the current axis ticks and uses the german decimal separator ',' instead of the '.'
 

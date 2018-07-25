@@ -1,0 +1,42 @@
+\documentclass[
+  captions=tableheading,
+]{scrartcl}
+
+\usepackage{scrhack}
+
+\usepackage[aux]{rerunfilecheck}
+
+\usepackage{amsmath}
+\usepackage{mathtools}
+
+\usepackage{fontspec}
+\usepackage{microtype}
+\usepackage{polyglossia}
+\setmainlanguage{german}
+
+
+\usepackage[
+  math-style=ISO,
+  bold-style=ISO,
+  sans-style=italic,
+  nabla=upright,
+  partial=upright,
+  warnings-off={
+    mathtools-colon,
+    mathtools-overbracket,
+  },
+]{unicode-math}
+
+\setmathfont{Latin Modern Math}
+
+\usepackage[
+  locale=DE,
+  separate-uncertainty=true,
+  per-mode=symbol-or-fraction,
+]{siunitx}
+\usepackage{float}
+\floatplacement{table}{htbp}
+\usepackage{booktabs}
+\begin{document}
+\input{example.tex}
+\end{document}

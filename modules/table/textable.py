@@ -40,8 +40,11 @@ def latex_tab(data=[[1,2,3],[42,42,42]],names=["col1","col2"],filename="test.tex
             #writing all data except the last columns
             for j in range(len(data)-1):
                 if isinstance(data[j][i],uncertainties.core.Variable):
-                    data[j][i]=(str(data[j][i])).replace('+/-',' \pm ')
-                    texfile.write('$\\num{'+ data[j][i]+'}$'+" & ")
+                    if(str(data[j][i])=="0.0+/-0"):
+                        texfile.write('$\\num{'+'0'+'}$')
+                    else:
+                        data[j][i]=(str(data[j][i])).replace('+/-','\pm')
+                        texfile.write('$\\num{'+ data[j][i]+'}$')
                 else:
                     if(data[j][i]=='-'):
                         texfile.write("$\\text{\\textbf{---}}$"+"&")

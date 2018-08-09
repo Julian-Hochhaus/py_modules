@@ -1,4 +1,5 @@
-
+#!/usr/bin/python
+# -*- coding: iso-8859-15 -*-
 import os, sys
 from modules.table import textable
 from modules.plot import axislabel as axis

@@ -33,7 +33,6 @@ def latex_tab(data=[[1,2,3],[42,42,42]],names=["col1","col2"],filename="test.tex
             texfile.write("{"+names[i]+"}& ")
         texfile.write("{"+names[len(names)-1]+"}")
         texfile.write(" \\\\\n");
-
         texfile.write("     \\midrule\n");
         #writing data
         for i in range(len_data_max):
@@ -50,12 +49,14 @@ def latex_tab(data=[[1,2,3],[42,42,42]],names=["col1","col2"],filename="test.tex
                         texfile.write(("{:10.%df}"%dec_points[j]).format(float(data[j][i]))+" & ")
             #writing last column, seperated to get \n at the end
             if isinstance(data[len(data)-1][i],uncertainties.core.Variable):
-                data[len(data)-1][i]=(str(data[len(data)-1][i])).replace('+/-','\pm')
-                texfile.write('$\\num{'+ data[len(data)-1][i]+'}$')
+                if(str(data[len(data)-1][i])=="0.0+/-0"):
+                    texfile.write('$\\num{'+'0'+'}$')
+                else:
+                    data[len(data)-1][i]=(str(data[len(data)-1][i])).replace('+/-','\pm')
+                    texfile.write('$\\num{'+ data[len(data)-1][i]+'}$')
             else:
                 if(data[len(data)-1][i]=='-'):
                     texfile.write("$\\text{\\textbf{---}}$")
-
                 else:
                     texfile.write(("{:10.%df}"%dec_points[len(dec_points)-1]).format(float(data[len(data)-1][i])))
             texfile.write(" \\\\\n")

@@ -1,4 +1,5 @@
 import uncertainties
+import numpy as np
 def latex_tab(data=[[1,2,3],[42,42,42]],names=["col1","col2"],filename="test.tex",caption="Caption",label="test", dec_points=[0,2]):
     try: #test, if names and data and dec_points array have different lenghts
         for i in range(len(data)-1):
@@ -14,7 +15,7 @@ def latex_tab(data=[[1,2,3],[42,42,42]],names=["col1","col2"],filename="test.tex
         for i in range(len(data)):
             if not len_data_max==len(data[i]):
                 for j in range(len_data_max-len(data[i])):
-                    data[i].append('-')
+                    data[i]=np.append(data[i],'-')
         #start writing table
         texfile = open(filename,"w")
         texfile.write("\\begin{table}\n");
@@ -54,7 +55,7 @@ def latex_tab(data=[[1,2,3],[42,42,42]],names=["col1","col2"],filename="test.tex
                 texfile.write('$\\num{'+ data[len(data)-1][i]+'}$')
             else:
                 if(data[len(data)-1][i]=='-'):
-                    texfile.write("$\\text{\\textbf{---}}$"+"&")
+                    texfile.write("$\\text{\\textbf{---}}$")
 
                 else:
                     texfile.write(("{:10.%df}"%dec_points[len(dec_points)-1]).format(data[len(data)-1][i]))

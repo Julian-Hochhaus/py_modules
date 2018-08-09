@@ -40,7 +40,6 @@ def latex_tab(data=[[1,2,3],[42,42,42]],names=["col1","col2"],filename="test.tex
             texfile.write("     ")
             #writing all data except the last columns
             for j in range(len(data)-1):
-
                 if isinstance(data[j][i],uncertainties.core.Variable):
                     data[j][i]=(str(data[j][i])).replace('+/-',' \pm ')
                     texfile.write('$\\num{'+ data[j][i]+'}$'+" & ")
@@ -48,7 +47,7 @@ def latex_tab(data=[[1,2,3],[42,42,42]],names=["col1","col2"],filename="test.tex
                     if(data[j][i]=='-'):
                         texfile.write("$\\text{\\textbf{---}}$"+"&")
                     else:
-                        texfile.write(("{:10.%df}"%dec_points[j]).format(data[j][i])+" & ")
+                        texfile.write(("{:10.%df}"%dec_points[j]).format(float(data[j][i]))+" & ")
             #writing last column, seperated to get \n at the end
             if isinstance(data[len(data)-1][i],uncertainties.core.Variable):
                 data[len(data)-1][i]=(str(data[len(data)-1][i])).replace('+/-','\pm')
@@ -58,7 +57,7 @@ def latex_tab(data=[[1,2,3],[42,42,42]],names=["col1","col2"],filename="test.tex
                     texfile.write("$\\text{\\textbf{---}}$")
 
                 else:
-                    texfile.write(("{:10.%df}"%dec_points[len(dec_points)-1]).format(data[len(data)-1][i]))
+                    texfile.write(("{:10.%df}"%dec_points[len(dec_points)-1]).format(float(data[len(data)-1][i])))
             texfile.write(" \\\\\n")
         texfile.write(" \\bottomrule\n");
         texfile.write(" \\end{tabular}\n");

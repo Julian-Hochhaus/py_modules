@@ -8,6 +8,7 @@ def long_tab(data=[[1,2,3],[42,42,42]],names=["col1","col2"],filename="test.tex"
                 raise TypeError("data and names and dec_points must have same dimension! "+"len(data)= "+str(len(data))+"; len(names)= "+str(len(names)) +"; len(dec_points)= "+str(len(dec_points)))
     except TypeError: raise
     else:
+        data=np.copy(data)
         #appends em dashs to shorter data arrays
         len_data_arr=[]
         for i in range(len(data)):

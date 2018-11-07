@@ -28,6 +28,7 @@ label must be a string.
 
 
 To write long tables, use
+
     textable.long_tab(data=[arr1,arr2],names=[r"title column 1",r"title column 2"], filename=r"example.tex",caption=r"Beautiful caption",label=r"important_label",dec_points=[2,0])
 
 

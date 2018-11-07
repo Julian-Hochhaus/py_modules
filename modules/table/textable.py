@@ -1,5 +1,93 @@
 import uncertainties
 import numpy as np
+import os
+def long_tab(data=[[1,2,3],[42,42,42]],names=["col1","col2"],filename="test.tex",caption="Caption",label="test", dec_points=[0,2]):
+    try: #test, if names and data and dec_points array have different lenghts
+        for i in range(len(data)-1):
+            if not(len(names)==len(data) and len(dec_points)==len(data)):
+                raise TypeError("data and names and dec_points must have same dimension! "+"len(data)= "+str(len(data))+"; len(names)= "+str(len(names)) +"; len(dec_points)= "+str(len(dec_points)))
+    except TypeError: raise
+    else:
+        #appends em dashs to shorter data arrays
+        len_data_arr=[]
+        for i in range(len(data)):
+            len_data_arr.append(len(data[i]))
+        len_data_max=max(len_data_arr)
+        for i in range(len(data)):
+            if not len_data_max==len(data[i]):
+                for j in range(len_data_max-len(data[i])):
+                    data[i]=np.append(data[i],'-')
+        #start writing table
+        texfile = open(filename,"w")
+        texfile.write("\\sisetup{detect-all}\n")#setup columnwidth to fit best
+        texfile.write(" \\begin{longtable}{")
+        for col in data:
+            texfile.write("S")
+        texfile.write("}\n");
+        texfile.write(" \\caption{"+caption+"}\n");
+        texfile.write(" \\label{tab:"+label+"}\\\ \n")
+        texfile.write(" \\toprule"+"\n");
+        for i in range(len(names)-1):
+            texfile.write("{"+names[i]+"}& ")
+        texfile.write("{"+names[len(names)-1]+"}\\\ \n")
+        texfile.write("\\midrule\n");
+
+        texfile.write("\\endfirsthead"+"\n")
+        texfile.write(" \\toprule"+"\n");
+        #writing column titles
+        for i in range(len(names)-1):
+            texfile.write("{"+names[i]+"}& ")
+        texfile.write("{"+names[len(names)-1]+"}\\\ \n")
+        texfile.write("\\midrule\n");
+        texfile.write("\\endhead"+"\n")
+        texfile.write("\\midrule\n");
+        texfile.write("\\endfoot")
+        texfile.write(" \\bottomrule\n");
+        texfile.write("\\endlastfoot");
+
+        #writing data
+        for i in range(len_data_max):
+            texfile.write("     ")
+            #writing all data except the last columns
+            for j in range(len(data)-1):
+                if isinstance(data[j][i],uncertainties.core.Variable) or (isinstance(data[j][i],uncertainties.core.AffineScalarFunc)):
+                    if(str(data[j][i])=="0.0+/-0"):
+                        texfile.write('$\\num{'+'0'+'}$'+"&")
+                    else:
+                        data[j][i]=(str(data[j][i])).replace('+/-','\pm')
+                        texfile.write('$\\num{'+ data[j][i]+'}$'+"&")
+                else:
+                    if(data[j][i]=='-'):
+                        texfile.write("$\\text{\\textbf{---}}$"+"&")
+                    else:
+                        texfile.write(("{:10.%df}"%dec_points[j]).format(float(data[j][i]))+" & ")
+            #writing last column, seperated to get \n at the end
+            if isinstance(data[len(data)-1][i],uncertainties.core.Variable) or (isinstance(data[len(data)-1][i],uncertainties.core.AffineScalarFunc)):
+                if(str(data[len(data)-1][i])=="0.0+/-0"):
+                    texfile.write('$\\num{'+'0'+'}$')
+                else:
+                    data[len(data)-1][i]=(str(data[len(data)-1][i])).replace('+/-','\pm')
+                    texfile.write('$\\num{'+ data[len(data)-1][i]+'}$')
+            else:
+                if(data[len(data)-1][i]=='-'):
+                    texfile.write("$\\text{\\textbf{---}}$")
+                else:
+                    texfile.write(("{:10.%df}"%dec_points[len(dec_points)-1]).format(float(data[len(data)-1][i])))
+            texfile.write(" \\\\\n")
+        texfile.write(" \\end{longtable}\n");
+        texfile.close()
+############################################
+####
+#
+#
+#
+#
+
+
+
+
+
+
 def latex_tab(data=[[1,2,3],[42,42,42]],names=["col1","col2"],filename="test.tex",caption="Caption",label="test", dec_points=[0,2]):
     try: #test, if names and data and dec_points array have different lenghts
         for i in range(len(data)-1):
@@ -39,19 +127,19 @@ def latex_tab(data=[[1,2,3],[42,42,42]],names=["col1","col2"],filename="test.tex
             texfile.write("     ")
             #writing all data except the last columns
             for j in range(len(data)-1):
-                if isinstance(data[j][i],uncertainties.core.Variable):
+                if isinstance(data[j][i],uncertainties.core.Variable) or (isinstance(data[j][i],uncertainties.core.AffineScalarFunc)):
                     if(str(data[j][i])=="0.0+/-0"):
-                        texfile.write('$\\num{'+'0'+'}$')
+                        texfile.write('$\\num{'+'0'+'}$'+"&")
                     else:
                         data[j][i]=(str(data[j][i])).replace('+/-','\pm')
-                        texfile.write('$\\num{'+ data[j][i]+'}$')
+                        texfile.write('$\\num{'+ data[j][i]+'}$'+"&")
                 else:
                     if(data[j][i]=='-'):
                         texfile.write("$\\text{\\textbf{---}}$"+"&")
                     else:
                         texfile.write(("{:10.%df}"%dec_points[j]).format(float(data[j][i]))+" & ")
             #writing last column, seperated to get \n at the end
-            if isinstance(data[len(data)-1][i],uncertainties.core.Variable):
+            if isinstance(data[len(data)-1][i],uncertainties.core.Variable) or (isinstance(data[len(data)-1][i],uncertainties.core.AffineScalarFunc)):
                 if(str(data[len(data)-1][i])=="0.0+/-0"):
                     texfile.write('$\\num{'+'0'+'}$')
                 else:

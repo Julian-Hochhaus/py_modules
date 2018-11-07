@@ -25,6 +25,14 @@ where a defines the number of spaces before the decimal separator and b after th
 For an example, have a look at example.py
 
 label must be a string.
+
+
+To write long tables, use
+
+    textable.long_tab(data=[arr1,arr2],names=[r"title column 1",r"title column 2"], filename=r"example.tex",caption=r"Beautiful caption",label=r"important_label",dec_points=[2,0])
+
+
+
 **Btw: You do not need to add prefix "tab:".**
 
 

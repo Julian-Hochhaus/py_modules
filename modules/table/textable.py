@@ -106,10 +106,10 @@ def long_tab(data=[[1,2,3],[42,42,42]],names=["col1","col2"],filename="test.tex"
         __append_dashes_to_short_arrays(data,len_data_max)
         #start writing table
         texfile = open(filename,"w")
-        texfile.write("\\sisetup{detect-all, parse-numbers=false}\n")#setup columnwidth to fit best
         texfile.write(" \\begin{longtable}{")
         __write_format_string(data,format_string,texfile);
         texfile.write(" \\caption{"+caption+"}\n");
+        texfile.write("\\sisetup{detect-all, parse-numbers=false}\n")#setup columnwidth to fit best
         texfile.write(" \\label{tab:"+label+"}\\\ \n")
         texfile.write(" \\toprule"+"\n");
         __column_names(names,texfile)

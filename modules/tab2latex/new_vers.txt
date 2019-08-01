@@ -1,0 +1,11 @@
+edit vers num.
+
+Run:
+
+python3 setup.py sdist bdist_wheel
+sudo -H twine upload --repository pypi dist/* 
+
+
+install using pip:
+
+

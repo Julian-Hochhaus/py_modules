@@ -29,3 +29,6 @@ To write long tables, use
 If you want to see the results, compile the .tex-file.
 To do so, easiest way is to use the makefile.
 That will compile main.tex where the generated example.tex is included.
+
+Version:
+0.0.5: Fixed errors with uncertainties

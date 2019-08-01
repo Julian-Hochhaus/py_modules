@@ -1,16 +1,17 @@
 #!/usr/bin/python
-# -*- coding: iso-8859-15 -*-
+# -*- coding: utf-8 -*-
 import os, sys
-from modules.table import textable
+from modules.tab2latex.tab2latex import textable
 from modules.plot import axislabel as axis
 import uncertainties.unumpy as unp
 import matplotlib.pyplot as plt
 import numpy as np
-print np.__version__
+import math as math
+
 #example textable
-arr2= unp.uarray([1.09553, 2,3,0], [0.0112445, 0.00244,0.2,0])
-arr1=[2,3,4,5]
-textable.latex_tab(data=[arr1,arr2],names=[r"title column 1",r"title columnÜ"], filename=r"example.tex",caption=r"Beautiful caption",label=r"important_label",dec_points=[2,0])
+arr2= unp.uarray([1.09553e-12, 2,3,0], [0.0112445e-21, 0.0024400,0.20,0])
+arr1=[2e12,3e-12,4.098346,5]
+textable.latex_tab(data=[arr1,arr2],names=[r"title column 1",r"title columnÜ"], filename=r"example.tex",caption=r"Beautiful caption",label=r"important_label",dec_points=[2,3])
 # dec_points sets precision, i.e. dec_points[0]=2 will display 2 decimal places for all values in column 1
 # for values with uncertainties, the given value in dec_points is ignored. Instead, it follows the rounding rules defined by the Particle Data Group.
 

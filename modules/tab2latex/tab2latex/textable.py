@@ -1,6 +1,7 @@
 import uncertainties
 import numpy as np
 import os
+from uncertainties import ufloat
 
 #######
 #private functions
@@ -21,18 +22,28 @@ def __writedata(data,names,texfile,caption,label, dec_points,len_data_max):
                 for j in range(len(data)):
                     if isinstance(data[j][i],uncertainties.core.Variable) or (isinstance(data[j][i],uncertainties.core.AffineScalarFunc)):
                         if(str(data[j][i])=="0.0+/-0"):
-                            texfile.write('$\\num{'+'0'+'}$')
+                            texfile.write(r'{'+r'$\num{'+'0'+'}$'+r'}')
                             __write_seperator_or_newline(data,texfile,j);
                         else:
-                            value,unc=(str(data[j][i])).split('+/-')
-                            texfile.write('$\\num{'+("{:10.%df}"%dec_points[j]).format(float(value))+"\pm"+("{:10.%df}"%dec_points[j]).format(float(unc))+'}$')
+                            texfile.write(r'{'+r'${:L}$'.format(data[j][i])+r'}')
                             __write_seperator_or_newline(data,texfile,j);
                     else:
                         if(data[j][i]=='-'):
-                            texfile.write("$\\text{\\textbf{---}}$")
+                            texfile.write(r'{'+r"$\\text{\\textbf{---}}$"+r'}')
                             __write_seperator_or_newline(data,texfile,j);
                         else:
-                            texfile.write(("{:10.%df}"%dec_points[j]).format(float(data[j][i])))
+                            val=ufloat(data[j][i],0)
+                            val_str=r'{:L}'.format(val)
+                            if('(' in val_str):
+                                val,exp=val_str.split(r'\pm')
+                                br,val=val.split('(')
+                                val=str(round(float(val),dec_points[j]))
+                                br,exp=exp.split(')')
+                                texfile.write(r'{$'+val+exp+r'$}')
+                            else:
+                                val=str(round(val.n,dec_points[j]))
+                                texfile.write(r'{$'+val+r'$}')
+
                             __write_seperator_or_newline(data,texfile,j);
                 texfile.write(" \\\\\n")
 
@@ -166,8 +177,8 @@ def latex_tab(data=[[1,2,3],[42,42,42]],names=["col1","col2"],filename="test.tex
 
 #if module is executed as script:
 if __name__ == "__main__":
-    arr1=[1,3,4]
-    arr2=[0.8,12,234,42,1.28]
+    arr1=[1e-30,0.0003,4]
+    arr2=[0.8e-3,12234783573e12,234,42,1.2800000200]
     import textable
     print("42 is the answer to life the universe and everything!")
     print("Running this module as script generates a sample table.tex")
